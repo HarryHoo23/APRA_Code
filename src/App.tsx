@@ -1,14 +1,25 @@
 import React from 'react';
 import PhotoList from './components/PhotoList';
 import SearchForm from './components/SearchForm';
-import './App.css';
+import styled from 'styled-components';
+
+const PageContainer = styled.main`
+  max-width: 1200px;
+  padding: 1.5rem;
+  margin: 0 auto;
+`
+
+const Title = styled.h2`
+  text-align: center;
+`
 
 const App: React.FC = () => {
   return (
-    <div>
+    <PageContainer>
+      <Title>Photo List</Title>
       <SearchForm />
       <PhotoList />
-    </div>
+    </PageContainer>
   );
 }
 
