@@ -2,11 +2,11 @@ import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { getPagination } from '../GetPagination';
 
 export interface PhotoType {
-  albumId: number | null;
-  id: number | null;
-  title: string | null;
-  url: string | null;
-  thumbnailUrl: string | null;
+  albumId: number;
+  id: number;
+  title: string;
+  url: string;
+  thumbnailUrl: string;
 }
 
 type ContextProviderProps = {
@@ -19,6 +19,8 @@ interface AppContextInterface {
   photos: PhotoType[] | null;
   photosPerPage: number;
   paginatedData: PhotoType[] | null;
+  isOpen: boolean,
+  setIsOpen: (isOpen: boolean) => void;
   setSearchTitle: (title: string) => void;
   setPhotos: (value: PhotoType[]) => void;
   paginate: (pageNumber: number) => void;
@@ -30,6 +32,7 @@ const AppContext = React.createContext({} as AppContextInterface);
 
 const AppProvider = ({ children }: ContextProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [searchTitle, setSearchTitle] = useState<string>('');
   const [photos, setPhotos] = useState<PhotoType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -42,8 +45,6 @@ const AppProvider = ({ children }: ContextProviderProps) => {
       const data = await response.json();
       setPhotos(data);
       setLoading(false);
-      console.log(data);
-      
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -68,6 +69,8 @@ const AppProvider = ({ children }: ContextProviderProps) => {
         photos,
         photosPerPage,
         paginatedData,
+        isOpen,
+        setIsOpen,
         setSearchTitle,
         setPhotos,
         paginate,

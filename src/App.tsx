@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const PageContainer = styled.main`
   max-width: 1200px;
-  padding: 1.5rem;
+  padding: 3.5rem 1.5rem 1.5rem;
   margin: 0 auto;
 `
 

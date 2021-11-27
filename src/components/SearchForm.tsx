@@ -1,13 +1,54 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import styled from 'styled-components';
 import { useGlobalContext } from '../context/Context';
 
-const SearchForm = () => {
-  const { searchTitle } = useGlobalContext();
+const Form = styled.form`
+  margin: 0 auto;
+  width: 80%;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  background-color: #f9f9f9;
+  text-transform: capitalize;
+  box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.2);
+`
+
+const FormControl = styled.div`
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    padding: 0.5rem;
+    background: var(--clr-grey-10);
+    transition: 0.1s ease-in-out;
+
+    &:focus {
+      background-color: var(--clr-grey-8);
+    }
+  }
+`;
+
+const SearchForm: React.FC = () => {
+  const { setSearchTitle } = useGlobalContext();
+  const searchValue = useRef<HTMLInputElement>(null);
+
+  const searchTitle = () => {
+    if (searchValue.current) setSearchTitle(searchValue.current.value)
+  }
 
   return (
-    <div>
-      this is a search input.
-    </div>
+    <section className="section search">
+      <Form>
+        <FormControl>
+          <label htmlFor="title">Search photo by title</label>
+          <input type="text" id="title" ref={searchValue} onChange={searchTitle} />
+        </FormControl>
+      </Form>
+    </section>
   )
 }
 

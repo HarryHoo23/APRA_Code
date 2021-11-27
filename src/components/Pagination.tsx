@@ -4,9 +4,11 @@ import { fetchPageNumbers } from '../GetPagination';
 
 const PaginationList = styled.ul`
   display: flex;
+  justify-content: center;
+  margin-top: 2rem;
   flex-wrap: wrap;
   padding-left: 0;
-  max-width: 100%;
+  width: 100%;
   list-style: none;
 
   li:first-child a {

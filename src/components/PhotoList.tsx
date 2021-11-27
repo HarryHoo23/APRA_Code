@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Photo from './Photo';
 import Pagination from './Pagination';
-import { useGlobalContext } from '../context/Context';
+import Modal from './Modal';
+import { useGlobalContext, PhotoType } from '../context/Context';
 
 const Table = styled.table`
   width: 100%;
@@ -11,7 +12,7 @@ const Table = styled.table`
   td {
     border: 1px solid var(--clr-grey-8);
     text-align: left;
-    padding: 1rem 0.5rem;
+    padding: 0.5rem 1rem;
   }
 
   thead tr th:nth-child(1) {
@@ -27,9 +28,29 @@ const Table = styled.table`
   }
 `;
 
+const PhotoItem = styled.tr`
+  td {
+    height: 120px;
+  }
+
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  &:hover {
+    background-color: #dddddd;
+  }
+`;
+
 const PhotoList: React.FC = () => {
-  const { loading, photos, photosPerPage, paginatedData, paginate } = useGlobalContext();
-  
+  const { loading, photos, photosPerPage, paginatedData, isOpen, setIsOpen, paginate } = useGlobalContext();
+  const [modalData, setModalData] = useState<PhotoType>();
+
+  const handleClick = (photo: PhotoType) => {
+    setIsOpen(true);
+    setModalData(photo);
+  }
+
   return (
     <section className='section'>
       <Table>
@@ -43,7 +64,11 @@ const PhotoList: React.FC = () => {
         <tbody>
           {paginatedData &&
             paginatedData.map((photo) => {
-              return <Photo key={photo.id} photo={photo} />;
+              return (
+                <PhotoItem key={photo.id} onClick={() => handleClick(photo)}>
+                  <Photo photo={photo} />
+                </PhotoItem>
+              );
             })}
         </tbody>
       </Table>
@@ -53,6 +78,11 @@ const PhotoList: React.FC = () => {
         pageNeighbours={1}
         paginate={paginate}
       />
+      <Modal isOpen={isOpen} onClosed={() => setIsOpen(false)}>
+        {modalData && 
+          <img src={modalData.url} alt={modalData.title} />
+        }
+      </Modal>
     </section>
   );
 }
