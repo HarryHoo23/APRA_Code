@@ -74,14 +74,14 @@ body {
   font-size: 0.875rem;
 }
 ul {
-  list-style-type: none;
+  list-style: none;
+}
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 a {
   text-decoration: none;
-}
-img {
-  width: 100%;
-  display: block;
 }
 
 h1,

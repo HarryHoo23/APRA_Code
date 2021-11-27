@@ -9,7 +9,21 @@ interface OwnProps {
 type Props = OwnProps;
 
 const PhotoItem = styled.tr`
-  padding: 1rem 0;
+  td {
+    height: 120px;
+  }
+
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  &:hover {
+    background-color: #dddddd;
+  }
+`
+
+const PhotoThumbnailImage = styled.img`
+  height: 100%;
 `
 
 const Photo: React.FC<Props> = (props) => {
@@ -18,7 +32,7 @@ const Photo: React.FC<Props> = (props) => {
     <PhotoItem>
       <td>{id}</td>
       <td>{title}</td>
-      <td>{thumbnailUrl}</td>
+      <td>{thumbnailUrl && title && <PhotoThumbnailImage src={thumbnailUrl} alt={title} />}</td>
     </PhotoItem>
   );
 }
