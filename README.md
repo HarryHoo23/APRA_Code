@@ -9,7 +9,7 @@ The projects involved：
 - Modal
 - Unit Test
 
-And this project is fetching 500 results from the API by using query _limit=500
+And this project is fetching 500 results from the API by using query: _limit=500
 
 Just to clarify: This project didn't use any UI Module (like Bootstrap, Material UI)
 
