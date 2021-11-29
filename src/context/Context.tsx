@@ -59,7 +59,7 @@ const AppProvider = ({ children }: ContextProviderProps) => {
 
   useEffect(() => {
     fetchPhotos();
-  }, [searchTitle]);
+  }, [searchTitle, fetchPhotos]);
 
   return (
     <AppContext.Provider

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import { useGlobalContext } from '../context/Context';
 
@@ -27,7 +27,7 @@ const FormControl = styled.div`
     transition: 0.1s ease-in-out;
 
     &:focus {
-      background-color: var(--clr-grey-8);
+      background-color: var(--clr-grey-9);
     }
   }
 `;
@@ -36,20 +36,33 @@ const SearchForm: React.FC = () => {
   const { setSearchTitle } = useGlobalContext();
   const searchValue = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    searchValue.current?.focus();
+  }, [])
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   const searchTitle = () => {
     if (searchValue.current) setSearchTitle(searchValue.current.value)
   }
 
   return (
-    <section className="section search">
-      <Form>
+    <section className='section search'>
+      <Form onSubmit={handleFormSubmit}>
         <FormControl>
-          <label htmlFor="title">Search photo by title</label>
-          <input type="text" id="title" ref={searchValue} onChange={searchTitle} />
+          <label htmlFor='title'>Search photo by title</label>
+          <input
+            type='text'
+            id='title'
+            ref={searchValue}
+            onChange={searchTitle}
+          />
         </FormControl>
       </Form>
     </section>
-  )
+  );
 }
 
 export default SearchForm

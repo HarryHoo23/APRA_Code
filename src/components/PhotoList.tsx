@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Loading from './Loading';
 import Photo from './Photo';
 import Pagination from './Pagination';
 import Modal from './Modal';
@@ -31,6 +32,7 @@ const Table = styled.table`
 const PhotoItem = styled.tr`
   td {
     height: 120px;
+    cursor: pointer;
   }
 
   &:nth-child(even) {
@@ -42,6 +44,13 @@ const PhotoItem = styled.tr`
   }
 `;
 
+const Title = styled.h2`
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 3.5rem;
+  margin-top: 1rem;
+`
+
 const PhotoList: React.FC = () => {
   const { loading, photos, photosPerPage, paginatedData, isOpen, setIsOpen, paginate } = useGlobalContext();
   const [modalData, setModalData] = useState<PhotoType>();
@@ -51,8 +60,17 @@ const PhotoList: React.FC = () => {
     setModalData(photo);
   }
 
+  if (loading) return <Loading />;
+
+  if (photos && photos?.length < 1) {
+    return (
+      <Title>No photos matched your search criteria</Title>
+    )
+  }
+
   return (
     <section className='section'>
+      <h3 className="page-title"><span>{photos?.length}</span> photos</h3>
       <Table>
         <thead>
           <tr>

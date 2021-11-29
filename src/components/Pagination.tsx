@@ -8,22 +8,21 @@ const PaginationList = styled.ul`
   margin-top: 2rem;
   flex-wrap: wrap;
   padding-left: 0;
-  width: 100%;
   list-style: none;
 
   li:first-child a {
     margin-left: 0;
   }
 
-  .active a {
+  .active button {
     background-color: #cccccc;
   }
 
-  a {
+  button {
     position: relative;
     display: block;
     cursor: pointer;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.75rem;
     margin-left: 0.5rem;
     line-height: 1.25;
     color: #2d2d2d;
@@ -36,6 +35,21 @@ const PaginationList = styled.ul`
   }
 `;
 
+const PaginationNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+
+  .page-container {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+`
+
 interface PaginationProps {
   photosPerPage: number;
   totalPhotos: number | null;
@@ -43,40 +57,46 @@ interface PaginationProps {
   paginate: (pageNumber: number) => void;
 }
 
-const LEFT_PAGE = "LEFT";
-const RIGHT_PAGE = "RIGHT";
+const LEFT_PAGE = 'LEFT';
+const RIGHT_PAGE = 'RIGHT';
 
-
-const Pagination: React.FC<PaginationProps> = ({ photosPerPage, totalPhotos, pageNeighbours, paginate }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  photosPerPage,
+  totalPhotos,
+  pageNeighbours,
+  paginate,
+}) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  
+
   let pageNeighbour = Math.max(0, Math.min(pageNeighbours, 2));
   const totalPage = totalPhotos ? Math.ceil(totalPhotos / photosPerPage) : 0;
-  
+
   const gotoPage = (page: number) => {
     paginate(page);
     setCurrentPage(Math.max(0, Math.min(page, totalPage)));
-  }
-  
+  };
+
   const handleMoveLeft = () => {
     gotoPage(currentPage - pageNeighbour * 2 - 1);
-  }
+  };
 
   const handleMoveRight = () => {
     gotoPage(currentPage + pageNeighbour * 2 + 1);
   };
-  
+
   const pages = fetchPageNumbers(totalPage, currentPage, pageNeighbour);
 
-
   return (
-    <nav>
+    <PaginationNav>
+      <div className='page-container'>
+        Page <span>{currentPage}</span> / <span>{totalPage}</span>
+      </div>
       <PaginationList>
         {pages.map((page, index) => {
           if (page === LEFT_PAGE) {
             return (
               <li key={index}>
-                <a onClick={handleMoveLeft}>&laquo;</a>
+                <button onClick={handleMoveLeft}>&laquo;</button>
               </li>
             );
           }
@@ -84,22 +104,23 @@ const Pagination: React.FC<PaginationProps> = ({ photosPerPage, totalPhotos, pag
           if (page === RIGHT_PAGE) {
             return (
               <li key={index}>
-                <a onClick={handleMoveRight}>&raquo;</a>
+                <button onClick={handleMoveRight}>&raquo;</button>
               </li>
             );
           }
 
           return (
-            <li key={index} className={`${currentPage === page ? "active" : ""}`}>
-              <a onClick={() => gotoPage(page)}>
-                {page}
-              </a>
+            <li
+              key={index}
+              className={`${currentPage === page ? 'active' : ''}`}
+            >
+              <button onClick={() => gotoPage(page)}>{page}</button>
             </li>
-          )
+          );
         })}
       </PaginationList>
-    </nav>
+    </PaginationNav>
   );
-}
+};
 
 export default Pagination;

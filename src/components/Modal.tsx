@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
@@ -23,11 +23,13 @@ const PhotoModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  padding: 3rem;
-  width: 80vw;
-  height: 80vw;
+  background-color: var(--clr-white);
+  padding: 3rem 2rem 2rem;
   z-index: 9999;
+
+  @media (max-width: 1200px) {
+    width: 80%;
+  }
 
   button {
     position: absolute;
@@ -39,7 +41,7 @@ const PhotoModal = styled.div`
     width: 100%;
     height: auto;
   }
-`
+`;
 
 const Modal: React.FC<ModalProps> = ({isOpen, onClosed, children}) => {
 
@@ -49,8 +51,8 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClosed, children}) => {
     <>
       <Overlay />
       <PhotoModal>
-        <button className='btn' onClick={onClosed}>
-          x
+        <button className='btn close-btn' onClick={onClosed}>
+          X
         </button>
         {children}
       </PhotoModal>
