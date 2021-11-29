@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Loading from './Loading';
-import Photo from './Photo';
-import Pagination from './Pagination';
-import Modal from './Modal';
-import { useGlobalContext, PhotoType } from '../context/Context';
+import Loading from '../Loading';
+import Photo from '../Photo';
+import Pagination from '../Pagination';
+import Modal from '../Modal';
+import { useGlobalContext, PhotoType } from '../../context/Context';
 
 const Table = styled.table`
   width: 100%;

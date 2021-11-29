@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
-import { useGlobalContext } from '../context/Context';
+import { useGlobalContext } from '../../context/Context';
 
 const Form = styled.form`
   margin: 0 auto;
@@ -45,7 +45,7 @@ const SearchForm: React.FC = () => {
   };
 
   const searchTitle = () => {
-    if (searchValue.current) setSearchTitle(searchValue.current.value)
+    if (searchValue.current) setSearchTitle(searchValue.current.value);
   }
 
   return (

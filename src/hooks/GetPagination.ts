@@ -1,8 +1,9 @@
-import { PhotoType } from "./context/Context";
+import { PhotoType } from "../context/Context";
 
 
-export const getPagination = (curentPhoto: number, photosPerPage: number, data: PhotoType[]) => {
-  const indexOfLastPhoto = curentPhoto * photosPerPage;
+
+export const getPagination = (currentPhoto: number, photosPerPage: number, data: PhotoType[]) => {
+  const indexOfLastPhoto = currentPhoto * photosPerPage;
   const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
   const currentPhotoList = data.slice(indexOfFirstPhoto, indexOfLastPhoto);
   return currentPhotoList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PhotoType } from '../context/Context';
+import { PhotoType } from '../../context/Context';
 
 interface OwnProps {
   photo: PhotoType,

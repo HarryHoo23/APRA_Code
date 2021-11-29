@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { fetchPageNumbers } from '../GetPagination';
+import { fetchPageNumbers } from '../../hooks/GetPagination';
 
 const PaginationList = styled.ul`
   display: flex;

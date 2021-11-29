@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
-import { getPagination } from '../GetPagination';
+import { getPagination } from '../hooks/GetPagination';
 
 export interface PhotoType {
   albumId: number;
@@ -15,14 +15,12 @@ type ContextProviderProps = {
 
 interface AppContextInterface {
   loading: boolean;
-  searchTitle: string | null;
   photos: PhotoType[] | null;
   photosPerPage: number;
   paginatedData: PhotoType[] | null;
   isOpen: boolean,
   setIsOpen: (isOpen: boolean) => void;
   setSearchTitle: (title: string) => void;
-  setPhotos: (value: PhotoType[]) => void;
   paginate: (pageNumber: number) => void;
 }
 
@@ -56,6 +54,7 @@ const AppProvider = ({ children }: ContextProviderProps) => {
   };
 
   const paginatedData = getPagination(currentPage, photosPerPage, photos);
+  // this function will return only the first page of data becuase of pagination.
 
   useEffect(() => {
     fetchPhotos();
@@ -65,14 +64,12 @@ const AppProvider = ({ children }: ContextProviderProps) => {
     <AppContext.Provider
       value={{
         loading,
-        searchTitle,
         photos,
         photosPerPage,
         paginatedData,
         isOpen,
         setIsOpen,
         setSearchTitle,
-        setPhotos,
         paginate,
       }}
     >
