@@ -9,6 +9,10 @@ The projects involved：
 - Modal
 - Unit Test
 
+## This Project is deployed to Heroku
+
+View the Demo [here](https://photolist-app.herokuapp.com/).
+
 ## Available Scripts
 
 In the project directory, you can run:
