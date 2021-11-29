@@ -9,6 +9,8 @@ The projects involved：
 - Modal
 - Unit Test
 
+Just to clarify: This project didn't use any UI Module (like Bootstrap, Material UI)
+
 ## This Project is deployed to Heroku
 
 View the Demo [here](https://photolist-app.herokuapp.com/).
